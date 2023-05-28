@@ -1,8 +1,8 @@
 $senderEmail = "sender@example.com"
 $recipientEmail = "recipient@example.com"
-$subject = "File List"
-$body = "Please find attached the file list."
-$attachmentPath = Join-Path -Path ([System.Environment]::ExpandEnvironmentVariables("%USERPROFILE%")) -ChildPath "output.txt"
+$subject = "Folder List"
+$body = "Please find attached the folder list."
+$attachmentPath = Join-Path -Path ([System.Environment]::ExpandEnvironmentVariables("%USERPROFILE%")) -ChildPath "folder_list.txt"
 $smtpServer = "smtp.example.com"
 $username = "your_username"
 $password = "your_password"
@@ -10,8 +10,8 @@ $password = "your_password"
 $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
 $credentials = New-Object System.Management.Automation.PSCredential -ArgumentList $username, $securePassword
 
-# File listing
-Get-ChildItem -Path "C:\" -Recurse | Out-File -FilePath $attachmentPath -Append
+# Folder listing
+Get-ChildItem -Path "C:\" -Directory -Depth 1 | Select-Object -ExpandProperty FullName | Out-File -FilePath $attachmentPath
 
 # Wait for 10 seconds
 Start-Sleep -Seconds 10
