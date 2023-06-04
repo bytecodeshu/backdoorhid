@@ -1,11 +1,11 @@
-$senderEmail = "sender@example.com"
-$recipientEmail = "recipient@example.com"
+$senderEmail = "jhonhkfj@gmx.com"
+$recipientEmail = "recipient@emcd.com"
 $subject = "Folder List"
 $body = "Please find attached the folder list."
 $attachmentPath = Join-Path -Path ([System.Environment]::ExpandEnvironmentVariables("%USERPROFILE%")) -ChildPath "folder_list.txt"
-$smtpServer = "smtp.example.com"
+$smtpServer = "mail.gmx.com"
 $username = "your_username"
-$password = "your_password"
+$password = "john@201"
 
 $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
 $credentials = New-Object System.Management.Automation.PSCredential -ArgumentList $username, $securePassword
