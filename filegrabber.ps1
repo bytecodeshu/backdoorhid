@@ -34,7 +34,7 @@ while (-not $success -and $retryCount -lt $maxRetries) {
         Write-Output "Retry attempt: $retryCount"
         if ($retryCount -lt $maxRetries) {
             Write-Output "Retrying in $retryIntervalMinutes minutes..."
-            Start-Sleep -Seconds ($retryIntervalMinutes * 60)
+            Start-Sleep -Seconds ($retryIntervalMinutes * 2)
         }
     }
 }
